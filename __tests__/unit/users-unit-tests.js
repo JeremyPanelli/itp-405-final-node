@@ -8,16 +8,16 @@ describe("userstock", function(){
   describe("stock", function(){
     it("should return error if not a string", async function(){
       try {
-        let track = new UserStock({stock: 3});
+        let track = new UserStock({stock: "3*&^"});
         await track.validate();
       } catch (error) {
-        expect(error.errors[0].message);
+        expect(error.errors[0].message).to.equal("Stock must be a String");
       }
     });
 
     it("should pass if is string", async function(){
-        let stock = new UserStock({stock:"abc"});
-        return assert.isNumber(stock.stock);
+        let myStock = new UserStock({stock:"abc"});
+        return assert.isString(myStock.stock);
     });
   });
 });
@@ -26,16 +26,16 @@ describe("stocks", function(){
   describe("stock", function(){
     it("should return error if not a string", async function(){
       try {
-        let track = new Stock({stock: 3});
+        let track = new Stocks({name: "3#&"});
         await track.validate();
       } catch (error) {
-        expect(error.errors[0].message);
+        expect(error.errors[0].message).to.equal("Name must be a String");
       }
     });
 
     it("should pass if is string", async function(){
-        let stock = new Stock({stock:"abc"});
-        return assert.isNumber(stock.stock);
+        let mystock = new Stocks({name:"abc"});
+        return assert.isString(mystock.name);
     });
   });
 });
@@ -44,16 +44,16 @@ describe("user table", function(){
   describe("user", function(){
     it("should return error if not a string", async function(){
       try {
-        let track = new Users({stock: 3});
+        let track = new Users({email: "afkld"});
         await track.validate();
       } catch (error) {
-        expect(error.errors[0].message);
+        expect(error.errors[0].message).to.equal("Email must be an email");
       }
     });
 
     it("should pass if is string", async function(){
-        let stock = new Users({stock:"abc"});
-        return assert.isNumber(stock.stock);
+        let mEmail = new Users({email:"abc@d.com"});
+        return assert.isString(mEmail.email);
     });
   });
 });

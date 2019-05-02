@@ -4,11 +4,23 @@ module.exports = sequelize.define('users',{
   id: {
     field:'id',
     type: Sequelize.INTEGER,
-    primaryKey:true
+    primaryKey:true,
+    validate: {
+      isNumeric: {
+        args: true,
+        msg: 'Id must be a Number'
+      }
+    }
   },
   email: {
     field:'email',
-    type: Sequelize.STRING
+    type: Sequelize.STRING,
+    validate: {
+      isEmail: {
+        args: true,
+        msg: 'Email must be an email'
+      }
+    }
   }
 },
 {

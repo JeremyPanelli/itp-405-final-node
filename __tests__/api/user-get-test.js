@@ -47,7 +47,7 @@ describe("user", function(){
   });
   it("should return a status 200 when the user posts a new stock to their profile", function(){
     return frisby
-      .fetch("http://localhost:8000/api/users/1/abc123", {
+      .fetch("http://localhost:8000/api/users/1/abcdeff", {
         method:"post",
       })
       .expect("status", 200);
@@ -55,7 +55,7 @@ describe("user", function(){
 
   it("should return a status 200 when the user deletes a stock from their profile", function(){
     return frisby
-      .fetch("http://localhost:8000/api/users/1/abc123", {
+      .fetch("http://localhost:8000/api/users/1/abcdeff", {
         method:"delete",
       })
       .expect("status", 204);

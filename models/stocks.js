@@ -4,7 +4,13 @@ module.exports = sequelize.define('stocks',{
   name: {
     field:'name',
     type: Sequelize.STRING,
-    primaryKey:true
+    primaryKey:true,
+    validate: {
+      isAlpha: {
+        args: true,
+        msg: 'Name must be a String'
+      }
+    }
   }
 },
   {

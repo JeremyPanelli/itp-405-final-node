@@ -39,14 +39,14 @@ app.get('/api/users', async function(request, response){
   });
 });
 
-app.get('/api/users/:userstock', async function(request, response){
-  let userstock = parseInt(request.params.userstock);
-  await UserStock.findAll({where:{
+app.get('/api/users/:userstock',  function(request, response){
+  let userstock = request.params.userstock;
+  UserStock.findAll({where:{
     id: userstock
   }})
   .then(function (stock){
-    if(stock){
-      response.json(stock).send();
+    if(stock.length != 0){
+      response.json(stock);
     }else {
       response.status(404).send();
     }
