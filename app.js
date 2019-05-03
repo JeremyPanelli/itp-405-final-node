@@ -73,15 +73,61 @@ app.post('/api/users/:id/:stock', function(request, response){
   });
 });
 
+app.patch('/api/users/:id', async function(request, response){
+  let {id} = request.params;
+  Users.findByPk(id).then((email)=>{
+    if(email){
+    }else{
+      return Promise.reject();
+    }
+  }).then(()=>{
+    Users.update({
+      email: request.body.email
+    }, {where:{id : request.params.id}
+  }).then(()=>{
+    response.status(200).send();
+  }, (validation)=>{
+    response.status(422).json({
+      errors: validation.errors.map((error)=>{
+        return {
+          attribute: error.path,
+          message: error.message
+        }
+      })
+    });
+  },()=>{
+    response.status(404).send();
+  })
+  });
+});
+
 app.patch('/api/users/:id/:stock', function(request, response){
-    UserStock.update({
-      stock: request.body.stock
-    },{where:{
-      id: request.params.id,
-      stock: request.params.stock
-    }}).then((userstock) => {
-        response.status(200).json(userstock).send();
-    }).catch(()=>response.status(404).json().send());
+  stockBody = request.body.stock;
+  currStock = request.params.stock;
+  myId = request.params.id;
+  let {id, stock} = request.body;
+  UserStock.findAll({where:{
+    id: request.params.id
+  }}).then((pass)=>{
+  if(pass){}
+  else{return Promise.reject();}}).then(()=>{
+  UserStock.update({
+    stock: request.body.stock
+  }, {where:{
+    id: request.params.id,
+    stock: request.params.stock
+  }}).then((stock)=>{
+    response.status(200).json(stock).send();
+  }, (validation)=>{
+    response.status(422).json({
+      errors: validation.errors.map((error)=>{
+        return {
+          attribute: error.path,
+          message: error.message
+        }
+      })
+    })
+  })});
 });
 
 
@@ -95,6 +141,5 @@ app.delete('/api/users/:id/:stock', function(request, response) {
     response.status(404).send();
   });
 });
-
 
 app.listen(8000);

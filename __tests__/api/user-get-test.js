@@ -60,4 +60,46 @@ describe("user", function(){
       })
       .expect("status", 204);
   });
+  it("should return a status 422 with validation errors if request body is invalid", function(){
+    return frisby
+      .fetch("http://localhost:8000/api/users/1", {
+        method:"PATCH",
+        body:JSON.stringify({
+          email:"not an email"
+        })
+      })
+      .expect("status", 422)
+      .expect("json", "errors[0].message", "Email must be an email")
+  });
+  it("should return a status 200 for patching the email", function(){
+    return frisby
+      .fetch("http://localhost:8000/api/users/1", {
+        method:"PATCH",
+        body:JSON.stringify({
+          email:"abc@def.com"
+        })
+      })
+      .expect("status", 200)
+  });
+  it("should return a status 422 with validation errors if stock name is invalid", function(){
+    return frisby
+      .fetch("http://localhost:8000/api/users/1/abcdeff", {
+        method:"PATCH",
+        body:JSON.stringify({
+          stock:"359&&"
+        })
+      })
+      .expect("status", 422)
+      .expect("json", "errors[0].message", "Stock must be a String")
+  });
+  it("should return a status 200 for patching the stock", function(){
+    return frisby
+      .fetch("http://localhost:8000/api/users/1/dkl", {
+        method:"PATCH",
+        body:JSON.stringify({
+          stock:"cool"
+        })
+      })
+      .expect("status", 200)
+  });
 });
