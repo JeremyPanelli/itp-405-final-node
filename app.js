@@ -142,4 +142,4 @@ app.delete('/api/users/:id/:stock', function(request, response) {
   });
 });
 
-app.listen(8000);
+app.listen(process.env.PORT || 8000);
