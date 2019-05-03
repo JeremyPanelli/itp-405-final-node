@@ -130,7 +130,6 @@ app.patch('/api/users/:id/:stock', function(request, response){
   })});
 });
 
-
 app.delete('/api/users/:id/:stock', function(request, response) {
   UserStock.destroy({where:{
     id: request.params.id,
