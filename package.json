@@ -1,5 +1,6 @@
 {
-  "scripts": {
+  "scripts": {"start": "node app.js",
+    "start": "node app.js",
     "test": "git checkout database.db; forever start app.js; ./node_modules/jest/bin/jest.js; forever stop app.js; git checkout database.db"
   },
   "dependencies": {
